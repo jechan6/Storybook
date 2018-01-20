@@ -11,7 +11,7 @@ function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey
         format); // SDK.SpeechResultFormat.Simple (Options - Simple/Detailed)
 
     // Alternatively use SDK.CognitiveTokenAuthentication(fetchCallback, fetchOnExpiryCallback) for token auth
-    let authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
+    let authentication = new SDK.CognitiveSubscriptionKeyAuthentication("96ebee1e927f4baa9afa004ea3f59b81");
 
     return SDK.Recognizer.Create(recognizerConfig, authentication);
 }
