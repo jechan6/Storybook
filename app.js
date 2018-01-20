@@ -1,10 +1,14 @@
 var express = require("express"),
-    app = express();
-    
+    app = express(),
+    path = require("path");
+//app.use(express.static(__diname + "/public"));
+app.use(express.static(path.join(__dirname, 'public')));
 app.get("/", function(req,res) {
-    res.send("HELLO WORLD");
+    res.render("index.ejs");
 })
-
-app.listen(process.env.PORT,process.env.IP, function() {
+function startSpeech() {
+	alert("CLICKED");
+}
+app.listen(3000, function() {
     console.log("Server has started");
 })
