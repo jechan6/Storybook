@@ -115,7 +115,12 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-
+    var phraseDiv = document.getElementById("phraseDiv");
+    //hypothesisDiv.innerHTML = "";
+    var obj = JSON.parse(json);
+    //var test = document.getElementById("test");
+   // test.innerHTML = obj.NBest[0].Lexical;
+    phraseDiv.innerHTML += json + "\n";
 }
 
 function curLine(){
