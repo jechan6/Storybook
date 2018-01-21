@@ -133,7 +133,7 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-    //var phraseDiv = document.getElementById("phraseDiv");
+    var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
     var obj = JSON.parse(json);
 	//RecognitionStatus
@@ -151,11 +151,17 @@ function UpdateRecognizedPhrase(json) {
 		}
 	}
 
-    //phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "butts" +"\n";
-	//phraseDiv.innerHTML += json + "butts" +"\n";
+    phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "\n";
+	//phraseDiv.innerHTML += json + "\n";
 }
 
 function curLine(){
 	curSpot++;
-	phraseDiv.innerHTML = arrayOfSentences[curSpot];
+	
+	if(arrayOfSentences.length == curSpot){
+		phraseDiv.innerHTML = "The End!";
+	}
+	else{
+		phraseDiv.innerHTML = arrayOfSentences[curSpot];		
+	}
 }
