@@ -93,8 +93,8 @@ function Setup() {
         RecognizerStop(SDK, webRecognizer);
     }
 
-    webRecognizer = RecognizerSetup(SDK, "Interactive", "en-US", "Simple", "2d33987232b64c12a8e67724386579c7");
-           
+    webRecognizer = RecognizerSetup(SDK, "Conversation", "en-US", "Detailed", "2d33987232b64c12a8e67724386579c7");
+
 }
 function UpdateStatus(status) {
     var statusDiv = document.getElementById("statusDiv");
@@ -104,7 +104,7 @@ function OnSpeechEndDetected() {
             //stopBtn.disabled = true;
 }
  function UpdateRecognizedHypothesis(text, append) {
-       
+
 }
 function UpdateRecognizedPhrase(json) {
     var phraseDiv = document.getElementById("phraseDiv");
