@@ -70,7 +70,7 @@ function RecognizerStart(SDK, recognizer) {
 					
 				if (input){
                     if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
-                        if(confidence < .93) {
+                        if(confidence < .935) {
                           
                             message.innerHTML = "Try saying it clearer!";
                         } else {
