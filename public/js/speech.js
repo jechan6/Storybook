@@ -147,5 +147,10 @@ function UpdateRecognizedPhrase(json) {
 
 function curLine(){
 	curSpot++;
-	phraseDiv.innerHTML = arrayOfSentences[curSpot];
+	if(arrayOfSentences.length == curSpot){
+		phraseDiv.innerHTML = "The End!";
+	}
+	else{
+		phraseDiv.innerHTML = arrayOfSentences[curSpot];		
+	}
 }
