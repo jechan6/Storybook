@@ -9,6 +9,9 @@ curSpot = 0;
 var input;
 var message = document.getElementById("message");
 var confidence;
+var userSentence;
+correctSentence = arrayOfSentences[curSpot].toLowerCase().split(" ");
+
 document.addEventListener('DOMContentLoaded', function() {
     var phraseDiv = document.getElementById("phraseDiv");
     phraseDiv.innerHTML = arrayOfSentences[0];
@@ -83,7 +86,22 @@ function RecognizerStart(SDK, recognizer) {
                     else {
                         console.log(input);
                         console.log(arrayOfSentences[curSpot].toLowerCase());
-                        message.innerHTML = "Let's try that again!";
+                       
+			userSentence = input.split(" ");
+			
+			correctSentence = arrayOfSentences[curSpot].toLowerCase().split(" ");
+			
+			console.log(correctSentence.length);
+			console.log(userSentence.length);
+			if(correctSentence.length == userSentence.length){
+				
+				compareLines(correctSentence, userSentence);
+			}
+			else{
+				message.innerHTML = "Let's try that again!";
+			}
+					   
+					   
                     }
                 }
                 break;
@@ -135,6 +153,8 @@ function OnSpeechEndDetected() {
  function UpdateRecognizedHypothesis(text, append) {
 
 }
+
+
 function UpdateRecognizedPhrase(json) {
     //var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
@@ -151,11 +171,30 @@ function UpdateRecognizedPhrase(json) {
 		else{
 
 			message.innerHTML = "Let's try that again!";
+
+
 		}
 	}
 
     //phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "\n";
 	//phraseDiv.innerHTML += json + "\n";
+}
+
+function compareLines(a, b){
+	console.log("in compare");
+	console.log(a);
+	console.log(b);
+	var temp = [];
+	count = 0;
+	for(i = 0; i < a.length; i++){
+		if(a[i].valueOf() != b[i].valueOf()){
+			temp[count] = a[i];
+			count++;
+		}
+	}
+	
+	message.innerHTML = "Let's try that again!" + "\n\n" + "Pronounce this clearer:  " + temp;
+	//message.innerHTML += ;
 }
 
 function curLine(){
@@ -166,5 +205,6 @@ function curLine(){
 	}
 	else{
 		phraseDiv.innerHTML = arrayOfSentences[curSpot];
+		//correctSentence = arrayOfSentences[curSpot].toLowerCase().split(" ");
 	}
 }
