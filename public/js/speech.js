@@ -19,7 +19,7 @@ function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey
 }
 
 function RecognizerStart(SDK, recognizer) {
-    console.log(recognizer);
+    
     recognizer.Recognize((event) => {
         /*
             Alternative syntax for typescript devs.
@@ -56,6 +56,7 @@ function RecognizerStart(SDK, recognizer) {
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 break;
             case "SpeechDetailedPhraseEvent" :
+               
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 break;
             case "RecognitionEndedEvent" :
@@ -79,10 +80,10 @@ function RecognizerStop(SDK, recognizer) {
 }
 var webRecognizer;
 function startSpeech() {
-    console.log(SDK);
+    
 
     Setup();
-    console.log("IM HERE");
+  
     RecognizerStart(SDK, webRecognizer);
 }
 function stopSpeech() {
@@ -109,5 +110,8 @@ function OnSpeechEndDetected() {
 function UpdateRecognizedPhrase(json) {
     var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
+    var obj = JSON.parse(json);
+    var test = document.getElementById("test");
+    test.innerHTML = obj.NBest[0].Lexical;
     phraseDiv.innerHTML += json + "\n";
 }
