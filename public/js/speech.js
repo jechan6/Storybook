@@ -2,8 +2,10 @@
 
 //var SDK = document.getElementById("webSDK").dataset.config;
 arrayOfSentences = ["She sells seashells by the seashore",
-					"Peter Piper picked a peck of pickled peppers"];
-curSpot = arrayOfSentences.length - 2;
+					"Peter Piper picked a peck of pickled peppers",
+                    "I saw Susie sitting in a shoe shine shop",
+                    "Robert ran rings around the Roman ruins"];
+curSpot = 0;
 var input;
 var message = document.getElementById("message");
 var confidence;
@@ -67,19 +69,20 @@ function RecognizerStart(SDK, recognizer) {
             case "SpeechDetailedPhraseEvent" :
 
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
-					
+
 				if (input){
                     if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
-                        if(confidence < .935) {
-                          
+                        if(confidence < .85) {
+
                             message.innerHTML = "Try saying it clearer!";
                         } else {
                             curLine();
                         }
-                       
+
                     }
                     else {
                         console.log(input);
+                        console.log(arrayOfSentences[curSpot].toLowerCase());
                         message.innerHTML = "Let's try that again!";
                     }
                 }
@@ -133,35 +136,35 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-    var phraseDiv = document.getElementById("phraseDiv");
+    //var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
     var obj = JSON.parse(json);
 	//RecognitionStatus
-	
+
 	if (obj.RecognitionStatus){
 		if (obj.RecognitionStatus.valueOf() == ("Success").valueOf()) {
             console.log(obj.NBest[0].Confidence);
             confidence = obj.NBest[0].Confidence;
-            
+
 			input = obj.NBest[0].Lexical;
 		 }
 		else{
-			
+
 			message.innerHTML = "Let's try that again!";
 		}
 	}
 
-    phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "\n";
+    //phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "\n";
 	//phraseDiv.innerHTML += json + "\n";
 }
 
 function curLine(){
 	curSpot++;
-	
+
 	if(arrayOfSentences.length == curSpot){
 		phraseDiv.innerHTML = "The End!";
 	}
 	else{
-		phraseDiv.innerHTML = arrayOfSentences[curSpot];		
+		phraseDiv.innerHTML = arrayOfSentences[curSpot];
 	}
 }
