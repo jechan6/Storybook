@@ -1,8 +1,10 @@
 //var SDK = require('../../node_modules/microsoft-speech-browser-sdk/distrib/Speech.Browser.Sdk.js');
 
 //var SDK = document.getElementById("webSDK").dataset.config;
-arrayOfSentences = ["Seashells seashells by the seashore",
+arrayOfSentences = ["She sells seashells by the seashore",
 					"Peter Piper picked a peck of pickled peppers"];
+					
+curSpot = arrayOfSentences.length - 2;
 
 document.addEventListener('DOMContentLoaded', function() {
     var phraseDiv = document.getElementById("phraseDiv");
@@ -117,5 +119,6 @@ function UpdateRecognizedPhrase(json) {
 }
 
 function curLine(){
-	
+	curSpot++;
+	phraseDiv.innerHTML = arrayOfSentences[curSpot];
 }
