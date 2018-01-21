@@ -1,7 +1,10 @@
 //var SDK = require('../../node_modules/microsoft-speech-browser-sdk/distrib/Speech.Browser.Sdk.js');
 
 //var SDK = document.getElementById("webSDK").dataset.config;
-
+document.addEventListener('DOMContentLoaded', function() {
+    var phraseDiv = document.getElementById("phraseDiv");
+    phraseDiv.innerHTML = "Hi, I am a children's story book";
+});
 function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
     let recognizerConfig = new SDK.RecognizerConfig(
         new SDK.SpeechConfig(
@@ -98,8 +101,7 @@ function Setup() {
 
 }
 function UpdateStatus(status) {
-    var statusDiv = document.getElementById("statusDiv");
-    statusDiv.innerHTML = status;
+   
 }
 function OnSpeechEndDetected() {
             //stopBtn.disabled = true;
@@ -108,10 +110,6 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-    var phraseDiv = document.getElementById("phraseDiv");
-    //hypothesisDiv.innerHTML = "";
-    var obj = JSON.parse(json);
-    var test = document.getElementById("test");
-    test.innerHTML = obj.NBest[0].Lexical;
-    phraseDiv.innerHTML += json + "\n";
+
+   
 }
