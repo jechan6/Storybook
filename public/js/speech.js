@@ -64,6 +64,7 @@ function RecognizerStart(SDK, recognizer) {
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 break;
             case "SpeechDetailedPhraseEvent" :
+				
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
                     curLine();
@@ -120,10 +121,16 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-    //var phraseDiv = document.getElementById("phraseDiv");
+    var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
     var obj = JSON.parse(json);
-    input = obj.NBest[0].Lexical;
+	//RecognitionStatus
+	if (obj.RecognitionStatus.valueOf() == ("Success").valueOf()) {
+		input = obj.NBest[0].Lexical;
+	 }
+	else{
+		
+	}
     //phraseDiv.innerHTML += json + "\n";
 }
 
