@@ -4,12 +4,15 @@
 	<title></title>
 </head>
 <body>
-  <h1 id="phraseDiv"></h1> 
+  <h1 id="phraseDiv">Hi</h1> 
   <button onClick='startSpeech()'>Start</button>
   <button onClick="stopSpeech()">Stop</button>
 <!--   <script src="./node_modules/microsoft-speech-browser-sdk/distrib/speech.sdk.bundle.js"></script>
- -->  <script type="text/javascript" src="./js/speech.js"></script>
-  <script type="text/javascript" src="./js/speech.sdk.bundle.js"></script>
+ -->  
+  <div id="webSDK" data-config= "<%= SDK%>"></div>
+ <script type="text/javascript" src="./distrib/speech.sdk.bundle.js"></script>
+ <script type="text/javascript" src="./js/speech.js"></script>
+
 
 </body>
 </html>

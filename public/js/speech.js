@@ -1,5 +1,7 @@
-var SDK;
-var recognizer;
+//var SDK = require('../../node_modules/microsoft-speech-browser-sdk/distrib/Speech.Browser.Sdk.js');
+var webRecognizer;
+var SDK = document.getElementById("webSDK").dataset.config;
+
 function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
     let recognizerConfig = new SDK.RecognizerConfig(
         new SDK.SpeechConfig(
@@ -9,9 +11,9 @@ function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey
         recognitionMode, // SDK.RecognitionMode.Interactive  (Options - Interactive/Conversation/Dictation)
         language, // Supported languages are specific to each recognition mode Refer to docs.
         format); // SDK.SpeechResultFormat.Simple (Options - Simple/Detailed)
-
+    //subscriptionKey = "2d33987232b64c12a8e67724386579c7";
     // Alternatively use SDK.CognitiveTokenAuthentication(fetchCallback, fetchOnExpiryCallback) for token auth
-    let authentication = new SDK.CognitiveSubscriptionKeyAuthentication("96ebee1e927f4baa9afa004ea3f59b81");
+    let authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
 
     return SDK.Recognizer.Create(recognizerConfig, authentication);
 }
@@ -76,8 +78,24 @@ function RecognizerStop(SDK, recognizer) {
 }
 
 function startSpeech() {
-    RecognizerStart(SDK, recognizer);
+    console.log(SDK);
+    Setup();
+    console.log("IM HERE");
+    RecognizerStart(SDK, webRecognizer);
 }
 function stopSpeech() {
-    RecognizerStop(SDK, recognizer);
+    RecognizerStop(SDK, webRecognizer);
+}
+function Setup() {
+    if (recognizer != null) {
+        RecognizerStop(SDK, webRecognizer);
+    }
+
+    webRecognizer = RecognizerSetup(SDK, "Interactive", "en-US", "Simple", "2d33987232b64c12a8e67724386579c7");
+           
+}
+function UpdateRecognizedPhrase(json) {
+    var phraseDiv = document.getElementById("phraseDiv");
+    //hypothesisDiv.innerHTML = "";
+    phraseDiv.innerHTML += json + "\n";
 }
