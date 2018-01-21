@@ -1,9 +1,12 @@
 //var SDK = require('../../node_modules/microsoft-speech-browser-sdk/distrib/Speech.Browser.Sdk.js');
 
 //var SDK = document.getElementById("webSDK").dataset.config;
+arrayOfSentences = ["Seashells seashells by the seashore",
+					"Peter Piper picked a peck of pickled peppers"];
+
 document.addEventListener('DOMContentLoaded', function() {
     var phraseDiv = document.getElementById("phraseDiv");
-    phraseDiv.innerHTML = "Hi, I am a children's story book";
+    phraseDiv.innerHTML = arrayOfSentences[0];
 });
 function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
     let recognizerConfig = new SDK.RecognizerConfig(
@@ -111,5 +114,8 @@ function OnSpeechEndDetected() {
 }
 function UpdateRecognizedPhrase(json) {
 
-   
+}
+
+function curLine(){
+	
 }
