@@ -67,13 +67,16 @@ function RecognizerStart(SDK, recognizer) {
             case "SpeechDetailedPhraseEvent" :
 
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
-                if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
-                    curLine();
-                }
-                else {
-                    console.log(input);
-                    message.innerHTML = "Let's try that again!";
-                }
+					
+				if (input){
+					if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
+						curLine();
+					}
+					else {
+						console.log(input);
+						message.innerHTML = "Let's try that again!";
+					}
+				}
                 break;
             case "RecognitionEndedEvent" :
                 OnComplete();
@@ -124,18 +127,22 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-    var phraseDiv = document.getElementById("phraseDiv");
+    //var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
     var obj = JSON.parse(json);
 	//RecognitionStatus
-	if (obj.RecognitionStatus.valueOf() == ("Success").valueOf()) {
-		input = obj.NBest[0].Lexical;
-	 }
-	else{
-        console.log(input);
-		message.innerHTML = "Let's try that again!";
+	
+	if (obj.RecognitionStatus){
+		if (obj.RecognitionStatus.valueOf() == ("Success").valueOf()) {
+			input = obj.NBest[0].Lexical;
+		 }
+		else{
+			console.log(input);
+			message.innerHTML = "Let's try that again!";
+		}
 	}
-    //phraseDiv.innerHTML += json + "\n";
+    //phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "butts" +"\n";
+	//phraseDiv.innerHTML += json + "butts" +"\n";
 }
 
 function curLine(){
