@@ -4,9 +4,9 @@
 arrayOfSentences = ["She sells seashells by the seashore",
 					"Peter Piper picked a peck of pickled peppers"];
 curSpot = arrayOfSentences.length - 2;
-var input = document.getElementById("input");
+var input;
 var message = document.getElementById("message");
-
+var confidence;
 document.addEventListener('DOMContentLoaded', function() {
     var phraseDiv = document.getElementById("phraseDiv");
     phraseDiv.innerHTML = arrayOfSentences[0];
@@ -69,14 +69,20 @@ function RecognizerStart(SDK, recognizer) {
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
 					
 				if (input){
-					if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
-						curLine();
-					}
-					else {
-						console.log(input);
-						message.innerHTML = "Let's try that again!";
-					}
-				}
+                    if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
+                        if(confidence < .85) {
+                          
+                            message.innerHTML = "Let's try that again!";
+                        } else {
+                            curLine();
+                        }
+                       
+                    }
+                    else {
+                        console.log(input);
+                        message.innerHTML = "Let's try that again!";
+                    }
+                }
                 break;
             case "RecognitionEndedEvent" :
                 OnComplete();
@@ -134,23 +140,22 @@ function UpdateRecognizedPhrase(json) {
 	
 	if (obj.RecognitionStatus){
 		if (obj.RecognitionStatus.valueOf() == ("Success").valueOf()) {
+            console.log(obj.NBest[0].Confidence);
+            confidence = obj.NBest[0].Confidence;
+            
 			input = obj.NBest[0].Lexical;
 		 }
 		else{
-			console.log(input);
+			
 			message.innerHTML = "Let's try that again!";
 		}
 	}
+
     //phraseDiv.innerHTML += json + " " + obj.RecognitionStatus + "butts" +"\n";
 	//phraseDiv.innerHTML += json + "butts" +"\n";
 }
 
 function curLine(){
 	curSpot++;
-	if(arrayOfSentences.length == curSpot){
-		phraseDiv.innerHTML = "The End!";
-	}
-	else{
-		phraseDiv.innerHTML = arrayOfSentences[curSpot];		
-	}
+	phraseDiv.innerHTML = arrayOfSentences[curSpot];
 }
