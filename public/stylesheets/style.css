@@ -2,4 +2,19 @@ body {
 	background: #1aa3ff;
 }
 
+#phraseDiv {
+	font-size: 80px;
+}
+
+#message {
+	font-size: 40px;
+}
+
+#nextbutton {
+	font-size: 40px;
+}
+
+#startbutton {
+	font-size: 40px;
+}
 

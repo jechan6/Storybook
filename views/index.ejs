@@ -12,14 +12,14 @@
   <br /><br />
   
   
-  <img src="http://moziru.com/images/turtoise-clipart-tortoise-and-the-hare-3.jpg">
+  <!-- <img src="http://moziru.com/images/turtoise-clipart-tortoise-and-the-hare-3.jpg"> -->
   <br /><br />
-  <button onClick='startSpeech()'>Start</button>
+  <button id="startbutton" onClick='startSpeech()'>Start</button>
  <!-- <button onClick="stopSpeech()">Stop</button> -->
 <!--   <script src="./node_modules/microsoft-speech-browser-sdk/distrib/speech.sdk.bundle.js"></script>
  -->
 
-   <button onClick="curLine()">Next</button>
+   <button id="nextbutton" onClick="curLine()">Next</button>
 
   <div id="webSDK" data-config= "<%= SDK%>"></div>
  <script type="text/javascript" src="./distrib/speech.sdk.bundle.js"></script>
