@@ -3,8 +3,8 @@
 //var SDK = document.getElementById("webSDK").dataset.config;
 arrayOfSentences = ["She sells seashells by the seashore",
 					"Peter Piper picked a peck of pickled peppers"];
-					
 curSpot = arrayOfSentences.length - 2;
+var input = document.getElementById("input");
 
 document.addEventListener('DOMContentLoaded', function() {
     var phraseDiv = document.getElementById("phraseDiv");
@@ -27,7 +27,7 @@ function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey
 }
 
 function RecognizerStart(SDK, recognizer) {
-    
+
     recognizer.Recognize((event) => {
         /*
             Alternative syntax for typescript devs.
@@ -64,7 +64,7 @@ function RecognizerStart(SDK, recognizer) {
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 break;
             case "SpeechDetailedPhraseEvent" :
-               
+
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 break;
             case "RecognitionEndedEvent" :
@@ -88,10 +88,10 @@ function RecognizerStop(SDK, recognizer) {
 }
 var webRecognizer;
 function startSpeech() {
-    
+
 
     Setup();
-  
+
     RecognizerStart(SDK, webRecognizer);
 }
 function stopSpeech() {
@@ -106,7 +106,7 @@ function Setup() {
 
 }
 function UpdateStatus(status) {
-   
+
 }
 function OnSpeechEndDetected() {
             //stopBtn.disabled = true;
@@ -115,12 +115,12 @@ function OnSpeechEndDetected() {
 
 }
 function UpdateRecognizedPhrase(json) {
-    var phraseDiv = document.getElementById("phraseDiv");
+    //var phraseDiv = document.getElementById("phraseDiv");
     //hypothesisDiv.innerHTML = "";
     var obj = JSON.parse(json);
-    //var test = document.getElementById("test");
-   // test.innerHTML = obj.NBest[0].Lexical;
-    phraseDiv.innerHTML += json + "\n";
+    input = obj.NBest[0].Lexical;
+    console.log(input);
+    //phraseDiv.innerHTML += json + "\n";
 }
 
 function curLine(){
