@@ -1,6 +1,6 @@
 //var SDK = require('../../node_modules/microsoft-speech-browser-sdk/distrib/Speech.Browser.Sdk.js');
-var webRecognizer;
-var SDK = document.getElementById("webSDK").dataset.config;
+
+//var SDK = document.getElementById("webSDK").dataset.config;
 
 function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey) {
     let recognizerConfig = new SDK.RecognizerConfig(
@@ -15,10 +15,11 @@ function RecognizerSetup(SDK, recognitionMode, language, format, subscriptionKey
     // Alternatively use SDK.CognitiveTokenAuthentication(fetchCallback, fetchOnExpiryCallback) for token auth
     let authentication = new SDK.CognitiveSubscriptionKeyAuthentication(subscriptionKey);
 
-    return SDK.Recognizer.Create(recognizerConfig, authentication);
+    return SDK.CreateRecognizer(recognizerConfig, authentication);
 }
 
 function RecognizerStart(SDK, recognizer) {
+    console.log(recognizer);
     recognizer.Recognize((event) => {
         /*
             Alternative syntax for typescript devs.
@@ -76,9 +77,10 @@ function RecognizerStop(SDK, recognizer) {
     // recognizer.AudioSource.Detach(audioNodeId) can be also used here. (audioNodeId is part of ListeningStartedEvent)
     recognizer.AudioSource.TurnOff();
 }
-
+var webRecognizer;
 function startSpeech() {
     console.log(SDK);
+
     Setup();
     console.log("IM HERE");
     RecognizerStart(SDK, webRecognizer);
@@ -87,12 +89,22 @@ function stopSpeech() {
     RecognizerStop(SDK, webRecognizer);
 }
 function Setup() {
-    if (recognizer != null) {
+    if (webRecognizer != null) {
         RecognizerStop(SDK, webRecognizer);
     }
 
     webRecognizer = RecognizerSetup(SDK, "Interactive", "en-US", "Simple", "2d33987232b64c12a8e67724386579c7");
            
+}
+function UpdateStatus(status) {
+    var statusDiv = document.getElementById("statusDiv");
+    statusDiv.innerHTML = status;
+}
+function OnSpeechEndDetected() {
+            //stopBtn.disabled = true;
+}
+ function UpdateRecognizedHypothesis(text, append) {
+       
 }
 function UpdateRecognizedPhrase(json) {
     var phraseDiv = document.getElementById("phraseDiv");
