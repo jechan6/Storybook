@@ -66,8 +66,7 @@ function RecognizerStart(SDK, recognizer) {
             case "SpeechDetailedPhraseEvent" :
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
-                    console.log(input.valueOf());
-                    console.log(arrayOfSentences[curSpot].toLowerCase().valueOf());
+                    curLine();
                 }
                 else {
                     console.log("try again");
