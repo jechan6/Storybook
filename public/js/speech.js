@@ -5,6 +5,7 @@ arrayOfSentences = ["She sells seashells by the seashore",
 					"Peter Piper picked a peck of pickled peppers"];
 curSpot = arrayOfSentences.length - 2;
 var input = document.getElementById("input");
+var message = document.getElementById("message");
 
 document.addEventListener('DOMContentLoaded', function() {
     var phraseDiv = document.getElementById("phraseDiv");
@@ -64,13 +65,14 @@ function RecognizerStart(SDK, recognizer) {
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 break;
             case "SpeechDetailedPhraseEvent" :
-				
+
                 UpdateRecognizedPhrase(JSON.stringify(event.Result, null, 3));
                 if (input.valueOf() == arrayOfSentences[curSpot].toLowerCase().valueOf()) {
                     curLine();
                 }
                 else {
-                    console.log("try again");
+                    console.log(input);
+                    message.innerHTML = "Let's try that again!";
                 }
                 break;
             case "RecognitionEndedEvent" :
@@ -94,7 +96,8 @@ function RecognizerStop(SDK, recognizer) {
 }
 var webRecognizer;
 function startSpeech() {
-
+    input = null;
+    message.innerHTML = "";
 
     Setup();
 
@@ -129,7 +132,8 @@ function UpdateRecognizedPhrase(json) {
 		input = obj.NBest[0].Lexical;
 	 }
 	else{
-		
+        console.log(input);
+		message.innerHTML = "Let's try that again!";
 	}
     //phraseDiv.innerHTML += json + "\n";
 }
